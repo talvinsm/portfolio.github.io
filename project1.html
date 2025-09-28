@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Project 1 – TryHackMe: Intro to Cybersecurity</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0f17;
+      --panel: #0f1522;
+      --panel-2: #121a2a;
+      --text: #e8eefb;
+      --muted: #9ab0d1;
+      --brand: #64b5ff;
+      --accent: #61ffa4;
+    }
+    body {
+      font-family: Inter, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      line-height: 1.6;
+    }
+    a { color: var(--brand); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { width: min(1100px, 92%); margin: 0 auto; }
+    header {
+      position: sticky; top: 0; z-index: 10;
+      backdrop-filter: blur(8px);
+      background: linear-gradient(0deg, rgba(11,15,23,0.55), rgba(11,15,23,0.55));
+      border-bottom: 1px solid rgba(100,181,255,0.15);
+    }
+    nav { display:flex; align-items:center; justify-content:space-between; padding: 14px 0; }
+    .brand { display:flex; gap:10px; align-items:center; font-weight:700; }
+    .brand .dot { width:10px; height:10px; border-radius:50%; background: var(--accent); box-shadow:0 0 18px var(--accent); }
+    .navlinks { display:flex; gap:18px; flex-wrap:wrap; }
+    .navlinks a { color: var(--muted); font-weight:500; }
+    .navlinks a:hover { color: var(--text); }
+    section { padding: 26px 0; }
+    .panel {
+      background: linear-gradient(180deg, var(--panel), var(--panel-2));
+      border: 1px solid rgba(100,181,255,0.15);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    footer {
+      color: var(--muted);
+      padding: 28px 0 40px;
+      font-size: 14px;
+    }
+    .divider { height:1px; background: linear-gradient(90deg, rgba(100,181,255,0.1), rgba(100,181,255,0.35), rgba(100,181,255,0.1)); margin: 8px 0 16px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="brand">
+          <span class="dot"></span>
+          <span>Talvin Matharu</span>
+        </div>
+        <div class="navlinks">
+          <a href="index.html#about">About</a>
+          <a href="index.html#skills">Skills</a>
+          <a href="index.html#tryhackme">TryHackMe</a>
+          <a href="index.html#projects">Projects</a>
+          <a href="index.html#certs">Certificates</a>
+          <a href="index.html#blog">Blog</a>
+          <a href="index.html#contact">Contact</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section>
+      <a href="index.html">← Back to Portfolio</a>
+      <h1>Project 1: TryHackMe – Intro to Cybersecurity</h1>
+
+      <div class="panel">
+        <h2>Summary</h2>
+        <p>
+          This project involved completing the "Intro to Cybersecurity" room on TryHackMe. 
+          It covered the CIA triad, basic Linux commands, and networking fundamentals.
+        </p>
+      </div>
+
+      <div class="panel">
+        <h2>Outcomes</h2>
+        <ul>
+          <li>Configured and navigated a Linux VM using file and process commands.</li>
+          <li>Explained CIA triad with real-world examples from lab scenarios.</li>
+        </ul>
+      </div>
+
+      <div class="panel">
+        <h2>Tools Used</h2>
+        <p>Linux shell, TryHackMe virtual labs.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="divider"></div>
+      <p>© <span id="year"></span> Talvin Matharu</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
