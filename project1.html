@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Project 1 – TryHackMe: Intro to Cybersecurity</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="style.css">
   <style>
     :root {
       --bg: #0b0f17;
@@ -22,6 +22,23 @@
       margin: 0;
       line-height: 1.6;
     }
+
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+  <img id="lightbox-img" src="" alt="Expanded screenshot" />
+</div>
+
+<script>
+  function openLightbox(src) {
+    document.getElementById("lightbox").classList.add("active");
+    document.getElementById("lightbox-img").src = src;
+  }
+  function closeLightbox() {
+    document.getElementById("lightbox").classList.remove("active");
+    document.getElementById("lightbox-img").src = "";
+  }
+</script>
+
+    
     a { color: var(--brand); text-decoration: none; }
     a:hover { text-decoration: underline; }
     .container { width: min(1100px, 92%); margin: 0 auto; }
@@ -94,6 +111,24 @@
           <li>Explained CIA triad with real-world examples from lab scenarios.</li>
         </ul>
       </div>
+      
+      <div class="panel">
+  <h2>Project Screenshots</h2>
+  <div class="image-grid">
+    <div class="image-card" onclick="openLightbox('images/project1-step1.png')">
+      <img src="images/project1-step1.png" alt="Nmap scan results" />
+      <p>Nmap scan results showing open ports.</p>
+    </div>
+    <div class="image-card" onclick="openLightbox('images/project1-step2.png')">
+      <img src="images/project1-step2.png" alt="Exploitation process" />
+      <p>Exploitation step using found vulnerability.</p>
+    </div>
+    <div class="image-card" onclick="openLightbox('images/project1-step3.png')">
+      <img src="images/project1-step3.png" alt="Privilege escalation" />
+      <p>Privilege escalation proof.</p>
+    </div>
+  </div>
+</div>
 
       <div class="panel">
         <h2>Tools Used</h2>
