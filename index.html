@@ -81,7 +81,7 @@
     footer { color: var(--muted); padding: 28px 0 40px; font-size: 14px; }
     .divider { height:1px; background: linear-gradient(90deg, rgba(100,181,255,0.1), rgba(100,181,255,0.35), rgba(100,181,255,0.1)); margin: 8px 0 16px; }
 
-    /* ✅ TryHackMe Card with stats */
+    /* TryHackMe Card */
     .tryhackme-card {
       display: flex;
       align-items: flex-start;
@@ -107,6 +107,52 @@
       justify-content: center;
     }
     .stats strong { color: var(--text); }
+
+    /* Certificates */
+    .cert-card img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 12px;
+      border: 2px solid #64b5ff;
+    }
+    .lightbox .nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 48px;
+      color: #fff;
+      cursor: pointer;
+      padding: 10px;
+      user-select: none;
+    }
+    .lightbox .prev { left: 20px; }
+    .lightbox .next { right: 20px; }
+    .lightbox .close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 32px;
+      color: #fff;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -166,17 +212,14 @@
       </div>
     </section>
 
-    <!-- ✅ TryHackMe Badge + Stats -->
+    <!-- TryHackMe -->
     <section id="tryhackme">
       <div class="panel">
         <h2>TryHackMe Progress</h2>
         <div class="tryhackme-card">
-          <!-- Left: Badge -->
           <div class="badge-wrapper">
-            <iframe src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=5036779"
-                    title="TryHackMe badge"></iframe>
+            <iframe src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=5036779" title="TryHackMe badge"></iframe>
           </div>
-          <!-- Right: Stats template -->
           <div class="stats">
             <p><strong>Current Rank:</strong> [Your Rank]</p>
             <p><strong>XP:</strong> [Your XP]</p>
@@ -187,7 +230,7 @@
       </div>
     </section>
 
-    <!-- PROJECTS -->
+    <!-- Projects -->
     <section id="projects">
       <div class="panel">
         <h2>Projects</h2>
@@ -209,7 +252,35 @@
       </div>
     </section>
 
-    <!-- BLOG -->
+    <!-- Certificates -->
+    <section id="certs">
+      <div class="panel">
+        <h2>Certificates & Achievements</h2>
+        <ul class="small">
+          <li>TryHackMe: <em>Pre-Security</em>, <em>Jr Penetration Tester</em> learning paths (in progress)</li>
+          <li>Cisco <em>Introduction to Cybersecurity</em> (2025)</li>
+          <li>School/College awards and relevant achievements</li>
+        </ul>
+
+        <h3 style="margin-top:16px;">Certificate Gallery</h3>
+        <div class="grid">
+          <div class="card cert-card" onclick="openLightbox('images/cert1.png', 0)">
+            <img src="images/cert1.png" alt="Certificate 1" />
+            <p class="small">TryHackMe – Pre-Security Path</p>
+          </div>
+          <div class="card cert-card" onclick="openLightbox('images/cert2.png', 1)">
+            <img src="images/cert2.png" alt="Certificate 2" />
+            <p class="small">Cisco – Introduction to Cybersecurity</p>
+          </div>
+          <div class="card cert-card" onclick="openLightbox('images/cert3.png', 2)">
+            <img src="images/cert3.png" alt="Certificate 3" />
+            <p class="small">School/College Award</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog -->
     <section id="blog">
       <div class="panel">
         <h2>Notes & write-ups</h2>
@@ -217,7 +288,7 @@
       </div>
     </section>
 
-    <!-- CONTACT -->
+    <!-- Contact -->
     <section id="contact">
       <div class="panel">
         <h2>Contact</h2>
@@ -226,6 +297,14 @@
       </div>
     </section>
   </main>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox">
+    <span class="nav prev" onclick="changeImage(-1)">❮</span>
+    <img id="lightbox-img" src="" alt="Expanded view" />
+    <span class="nav next" onclick="changeImage(1)">❯</span>
+    <span class="close" onclick="closeLightbox()">✕</span>
+  </div>
 
   <footer>
     <div class="container">
@@ -266,12 +345,12 @@
         title: "Unit 20 Enterprise in IT ",
         date: "2025-08-05",
         category: "Personal",
-        skills: ["Recon", "Service Enumeration", "Scripting"],
+        skills: ["Business Planning", "Presentation", "IT Strategy"],
         tools: ["Ansoff Matrix", "SOSTAC Model"],
-        summary: "Completed marketing plan for an app i developed, conducted a report and delivered a presentation to potential investors under timed contitions",
+        summary: "Completed marketing plan for an app I developed, wrote a report, and delivered a presentation to potential investors under timed conditions.",
         outcomes: [
-          "Automated scans with a custom NSE profile and parsed results to Markdown.",
-          "Mapped services to potential CVEs and next steps."
+          "Created structured marketing plan using strategic models.",
+          "Delivered and defended presentation under exam-style conditions."
         ],
         links: { writeup: "project3.html", repo: null, report: null }
       }
@@ -334,6 +413,36 @@
       if (!BLOG_POSTS.length) ul.innerHTML = '<li class="small">No posts yet — coming soon.</li>';
     }
 
+    // ✅ Certificate lightbox
+    let currentIndex = 0;
+    let galleryItems = [];
+
+    function openLightbox(src, index) {
+      galleryItems = Array.from(document.querySelectorAll('.cert-card img')).map(img => img.src);
+      currentIndex = index;
+      document.getElementById("lightbox").classList.add("active");
+      document.getElementById("lightbox-img").src = src;
+    }
+
+    function closeLightbox() {
+      document.getElementById("lightbox").classList.remove("active");
+      document.getElementById("lightbox-img").src = "";
+    }
+
+    function changeImage(direction) {
+      currentIndex = (currentIndex + direction + galleryItems.length) % galleryItems.length;
+      document.getElementById("lightbox-img").src = galleryItems[currentIndex];
+    }
+
+    // ✅ Keyboard controls for lightbox
+    document.addEventListener("keydown", function(e) {
+      if (!document.getElementById("lightbox").classList.contains("active")) return;
+      if (e.key === "ArrowRight") changeImage(1);
+      if (e.key === "ArrowLeft") changeImage(-1);
+      if (e.key === "Escape") closeLightbox();
+    });
+
+    // Init
     document.getElementById('searchInput').addEventListener('input', renderProjects);
     document.getElementById('filterCategory').addEventListener('change', renderProjects);
     document.getElementById('sortSelect').addEventListener('change', renderProjects);
